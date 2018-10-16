@@ -13,9 +13,9 @@ sleep .5 &
 
 modprobe -r zram
 
-echo "\n#########################" 
-echo " Modulo ZRAM desactivado"
-echo "#########################"
+echo "\n######################" 
+echo " Zram module Disabled"
+echo "######################"
  
 ##################################################
 exit 0
