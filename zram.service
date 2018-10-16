@@ -4,8 +4,8 @@ Description=Enable and create devices "ZRAM"
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/usr/local/bin/start-zram.sh
-ExecStop=/usr/local/bin/stop-zram.sh
+ExecStart=/usr/local/bin/start-zram
+ExecStop=/usr/local/bin/stop-zram
 
 [Install]
 WantedBy=multi-user.target
