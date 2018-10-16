@@ -5,7 +5,7 @@ num_zramdev=`nproc`
 for n in $(seq $num_zramdev); do
 	i=$((n - 1))
  	swapoff /dev/zram$i
- 	echo "\n# Dispositivo zram$i detenido."
+ 	echo "\n# Stopped zram$i device"
 done
 
 wait
