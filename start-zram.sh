@@ -15,7 +15,7 @@ priority_zramdev=5
 ##################################################
 
 #######################
-# Procesos ejecutados #
+# Processes executed #
 ##################################################
 
 # Number of devices "ZRAM" based on the number of processor cores.
