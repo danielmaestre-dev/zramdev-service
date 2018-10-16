@@ -1,0 +1,21 @@
+#!/bin/sh
+##################################################
+
+num_zramdev=`nproc`
+for n in $(seq $num_zramdev); do
+	i=$((n - 1))
+ 	swapoff /dev/zram$i
+ 	echo "\n# Dispositivo zram$i detenido."
+done
+
+wait
+sleep .5 &
+
+modprobe -r zram
+
+echo "\n#########################" 
+echo " Modulo ZRAM desactivado"
+echo "#########################"
+ 
+##################################################
+exit 0

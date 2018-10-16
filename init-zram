@@ -1,0 +1,46 @@
+#!/bin/sh
+############################
+# Parametros configurables #
+##################################################
+
+# Elegir algoritmo de compresión "lzo" o "lz4".
+compression_zramdev=lz4
+
+# Pocentaje de memoria "RAM" usado por dispositivos "ZRAM".
+percent=25
+
+# Prioridad de dispositivos "ZRAM".
+priority_zramdev=5
+
+##################################################
+
+#######################
+# Procesos ejecutados #
+##################################################
+
+# Numero de dispositivos "ZRAM" basado en el número de núcleos del procesador.
+num_zramdev=`nproc`
+
+# Activar modulo "ZRAM".
+modprobe zram num_devices=${num_zramdev}
+
+# Calcular cantidad de memoria "RAM" usada por dispositivos "ZRAM".
+memtotal_str=$(grep 'MemTotal' /proc/meminfo)
+memtotal_tmp=${memtotal_str#MemTotal:}
+total_memory=${memtotal_tmp%kB}
+size_zramdev=$((($total_memory * $percent / 100 / $num_zramdev) * 1024))
+
+# Inicializar dispositivos.
+for n in $(seq $num_zramdev); do
+	i=$((n - 1))
+
+	echo $compression_zramdev > /sys/block/zram$i/comp_algorithm
+
+	echo $size_zramdev > /sys/block/zram$i/disksize
+
+	mkswap /dev/zram$i
+
+	swapon -p $priority_zramdev /dev/zram$i
+done
+
+exit 0

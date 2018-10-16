@@ -1,0 +1,11 @@
+[Unit]
+Description=activar y crear dispositivos zram
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/etc/init-zram
+ExecStop=/usr/local/etc/end-zram
+
+[Install]
+WantedBy=multi-user.target
